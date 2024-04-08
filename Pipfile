@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-cors-headers = "*"
+djangorestframework = "*"
+fluidsynth = "*"
+midi2audio = "*"
+numpy = "*"
+tensorflow = "*"
+music21 = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"

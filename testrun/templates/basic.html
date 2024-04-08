@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Music Generator</title>
+		<style>
+			body {
+				/* font-family: Arial, sans-serif; */
+				font-family: Copperplate, Papyrus, fantasy;
+				/* font-family: 'Courier New', monospace; */
+				/* background-color: #f2f2f2; */
+				font-size: larger;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				background-image: url(/static/Images/b1.jpg);
+				background-repeat: no-repeat;
+				background-size: cover;
+				width: 50%;
+				color: white;
+			}
+			.container {
+				text-align: center;
+				/* background-color: white; */
+			}
+			h1 {
+				margin-bottom: 20px;
+			}
+
+			textarea {
+				width: 80%;
+				height: 100px;
+				margin-bottom: 20px;
+				padding: 10px;
+				font-size: 16px;
+				border: 1px solid #ccc;
+				border-radius: 5px;
+				resize: none;
+				background-color: #ed9c9c;
+				color: white;
+			}
+			button {
+				font-family: Copperplate, Papyrus, fantasy;
+				background-color: #4092e9;
+				color: #fff;
+				padding: 10px 20px;
+				border: none;
+				border-radius: 5px;
+				cursor: pointer;
+				font-size: 16px;
+			}
+			button:hover {
+				background-color: #034081;
+			}
+			#melody-output {
+				margin-top: 20px;
+				font-size: 18px;
+				font-weight: bold;
+				color: #333;
+			}
+			.examples {
+				margin-top: 20px;
+			}
+			.example {
+				display: inline-block;
+				margin: 10px;
+			}
+			.example button {
+				background-color: #a72828;
+			}
+			.example button:hover {
+				background-color: #882121;
+			}
+			#output-container {
+				height: auto;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.output-containers {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-top: 5px;
+			}
+			#options {
+				padding: 0 15px;
+				display: flex;
+				gap: 10px;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin-bottom: 20px;
+			}
+
+			.input {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			select {
+				font-family: Copperplate, Papyrus, fantasy;
+				font: 20px;
+				width: 150px;
+				/* height: 50px; */
+				font-size: 15px;
+			}
+
+			select:hover {
+				cursor: pointer;
+			}
+
+			#music-style {
+				display: flex;
+				align-items: center;
+				width: 100%;
+				justify-content: space-between;
+				height: auto;
+			}
+			a{
+				text-decoration: none;
+				color: white;
+				margin-left: 15px;
+			}
+
+			a:hover{
+				color: red;
+			}
+			/* #asd{
+				font-size: 20px;
+			} */
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Basic Music Generator</h1>
+
+			<div id="options">
+				<div class="input">
+					<label for="count">Count</label>
+					<input
+						type="range"
+						id="count"
+						min="1"
+						max="3"
+						oninput="changeShowCount()"
+					/>
+					<span id="countVal">2</span>
+				</div>
+				<div class="input">
+					<label for="temperature">Temperature</label>
+					<input
+						type="range"
+						id="temperature"
+						min="0.1"
+						max="1.0"
+						step="0.1"
+						oninput="changeShowTemp()"
+					/>
+					<span id="tempVal">0.6</span>
+				</div>
+				<!-- <div id="composer">
+					<label for="artist">Composer</label>
+					<select name="artist" id="artist">
+						<option value="Mozart">Mozart</option>
+						<option value="Chopin">Chopin</option>
+					</select>
+				</div> -->
+				<div id="music-style">
+					<label id="asd" for="style">Style</label>
+					<select name="style" id="style">
+						<option value="ballad">Ballad</option>
+						<option value="pop">Pop</option>
+						<option value="chorale">Chorale</option>
+						<option value="boehme">Boehme</option>
+					</select>
+				</div>
+				<fieldset style="display: flex; gap: 15px">
+					<legend>Select length:</legend>
+
+					<div>
+						<input type="radio" name="length" id="1" value="100" checked />
+						<label for="1">15s</label>
+					</div>
+
+					<div>
+						<input type="radio" name="length" id="2" value="220" />
+						<label for="2">30s</label>
+					</div>
+
+					<div>
+						<input type="radio" name="length" id="3" value="340" />
+						<label for="3">45s</label>
+					</div>
+					<div>
+						<input type="radio" name="length" id="4" value="460" />
+						<label for="4">60s</label>
+					</div>
+				</fieldset>
+			</div>
+			<button id="generate-button">Generate Music</button>
+			<div id="output-container" , class="output-containers">
+				<!-- <audio controls src="/media/Despacito.mp3"></audio> -->
+				<!-- <midi-player id="player" src=""> </midi-player> -->
+				<!-- <div id="melody-output"></div> -->
+				<!-- <a href="" id="download">Download Melody</a> -->
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.22.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.4.0"></script>
+
+		<script src="/static/js/script.js"></script>
+	</body>
+</html>
